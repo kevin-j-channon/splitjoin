@@ -2,15 +2,17 @@
 #include "CppUnitTest.h"
 
 #include "join.hpp"
+#include "split.hpp"
 
 #include <vector>
 #include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std::string_literals;
 
 namespace splitjoin
 {
-	TEST_CLASS(splitjoin)
+	TEST_CLASS(Join)
 	{
 	public:
 		
@@ -93,4 +95,29 @@ namespace splitjoin
             Assert::AreEqual( std::string( "   " ), sentence );
         }
 	};
+
+    TEST_CLASS( Split )
+    {
+        TEST_METHOD( split_string_on_space )
+        {
+            // Given: A string containing a delimiter (space)
+            // When: the string is split on space
+            // Then: The result is a vector of words that were separated by spaces in the original string
+
+            // GIVEN
+            const auto str = "One small step for man..."s;
+
+            // WHEN
+            const auto words = split( str, ' ' );
+
+            // THEN
+            const auto expected = std::vector<std::string>{ "One", "small", "step", "for", "man..." };
+            Assert::AreEqual( expected.size(), words.size() );
+
+            for ( size_t i = 0; i < expected.size(); ++i)
+            {
+                Assert::AreEqual( expected[i], words[i] );
+            }
+        }
+    };
 }

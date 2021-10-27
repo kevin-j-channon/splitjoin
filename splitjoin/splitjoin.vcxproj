@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="join.hpp" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="split.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
