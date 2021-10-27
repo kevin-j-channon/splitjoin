@@ -29,6 +29,21 @@ namespace splitjoin
             // THEN
             Assert::AreEqual( std::string( "One small step for man..."), sentence );
 		}
+        TEST_METHOD( join_strings_with_non_space_characters )
+        {
+            // Given: a vector of strings
+            // When: I join with a non-space character (dash)
+            // Then: The result is a single string with the items separated by dash characters.
+
+            // GIVEN
+            const auto items = std::vector<std::string>{ "One", "small", "step", "for", "man..." };
+
+            // WHEN
+            const auto sentence = join( items, '-' );
+
+            // THEN
+            Assert::AreEqual( std::string( "One-small-step-for-man..." ), sentence );
+        }
 
         TEST_METHOD( join_wide_strings_with_spaces )
         {
