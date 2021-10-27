@@ -45,5 +45,21 @@ namespace splitjoin
             // THEN
             Assert::AreEqual( std::wstring( L"One small step for man..." ), sentence );
         }
+
+        TEST_METHOD( join_empty_vector_is_an_empty_string )
+        {
+            // Given: an empty vector of strings
+            // When: I join with a space
+            // Then: The result is an empty string
+
+            // GIVEN
+            const auto items = std::vector<std::string>{};
+
+            // WHEN
+            const auto sentence = join( items, ' ' );
+
+            // THEN
+            Assert::AreEqual( std::string( "" ), sentence );
+        }
 	};
 }
