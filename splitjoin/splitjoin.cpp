@@ -61,5 +61,21 @@ namespace splitjoin
             // THEN
             Assert::AreEqual( std::string( "" ), sentence );
         }
+
+        TEST_METHOD( join_vector_of_empty_strings_is_only_delimiters )
+        {
+            // Given: a vector of N empty strings
+            // When: I join with a space
+            // Then: The result is a string with N - 1 spaces
+
+            // GIVEN
+            const auto items = std::vector<std::string>{"", "", "", ""};
+
+            // WHEN
+            const auto sentence = join( items, ' ' );
+
+            // THEN
+            Assert::AreEqual( std::string( "   " ), sentence );
+        }
 	};
 }
