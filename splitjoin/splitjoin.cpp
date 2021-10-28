@@ -29,7 +29,7 @@ namespace splitjoin
             const auto sentence = join( items, ' ');
 
             // THEN
-            Assert::AreEqual( std::string( "One small step for man..."), sentence );
+            Assert::AreEqual( "One small step for man..."s, sentence );
 		}
         TEST_METHOD( join_strings_with_non_space_characters )
         {
@@ -44,7 +44,7 @@ namespace splitjoin
             const auto sentence = join( items, '-' );
 
             // THEN
-            Assert::AreEqual( std::string( "One-small-step-for-man..." ), sentence );
+            Assert::AreEqual( "One-small-step-for-man..."s, sentence );
         }
 
         TEST_METHOD( join_wide_strings_with_spaces )
@@ -60,7 +60,7 @@ namespace splitjoin
             const auto sentence = join( items, L' ' );
 
             // THEN
-            Assert::AreEqual( std::wstring( L"One small step for man..." ), sentence );
+            Assert::AreEqual( L"One small step for man..."s, sentence );
         }
 
         TEST_METHOD( join_empty_vector_is_an_empty_string )
@@ -76,7 +76,7 @@ namespace splitjoin
             const auto sentence = join( items, ' ' );
 
             // THEN
-            Assert::AreEqual( std::string( "" ), sentence );
+            Assert::AreEqual( ""s, sentence );
         }
 
         TEST_METHOD( join_vector_of_empty_strings_is_only_delimiters )
@@ -92,7 +92,7 @@ namespace splitjoin
             const auto sentence = join( items, ' ' );
 
             // THEN
-            Assert::AreEqual( std::string( "   " ), sentence );
+            Assert::AreEqual( "   "s, sentence );
         }
 	};
 
@@ -115,6 +115,28 @@ namespace splitjoin
             Assert::AreEqual( expected.size(), words.size() );
 
             for ( size_t i = 0; i < expected.size(); ++i)
+            {
+                Assert::AreEqual( expected[i], words[i] );
+            }
+        }
+
+        TEST_METHOD( split_string_on_newline )
+        {
+            // Given: A string containing a delimiter (newline)
+            // When: the string is split on newline ('\n')
+            // Then: The result is a vector of words that were separated by newlines in the original string
+
+            // GIVEN
+            const auto str = "One small step for man...\nOne... giant leap... for Mankind"s;
+
+            // WHEN
+            const auto words = split( str, '\n' );
+
+            // THEN
+            const auto expected = std::vector<std::string>{ "One small step for man...", "One... giant leap... for Mankind" };
+            Assert::AreEqual( expected.size(), words.size() );
+
+            for ( size_t i = 0; i < expected.size(); ++i )
             {
                 Assert::AreEqual( expected[i], words[i] );
             }
