@@ -6,7 +6,7 @@
 template<typename Char_T>
 std::vector<std::basic_string<Char_T>> split( const std::basic_string<Char_T>& str, Char_T delimiter )
 {
-    auto result = std::vector < std::basic_string<Char_T>>();
+    auto result = std::vector<std::basic_string<Char_T>>();
 
     auto begin = str.cbegin();
     while (true)

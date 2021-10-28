@@ -95,6 +95,22 @@ namespace splitjoin
             // THEN
             Assert::AreEqual( "   "s, sentence );
         }
+
+        TEST_METHOD( join_vector_with_single_item )
+        {
+            // Given: A vector of strings with one item in it
+            // When: the strings are joined
+            // Then: The result is equal to the value of the single item in the vector
+
+            // GIVEN
+            const auto items = std::vector<std::string>{ "the one and only item" };
+
+            // WHEN
+            const auto result = join( items, '\n' );
+
+            // THEN
+            Assert::AreEqual( items.front(), result );
+        }
 	};
 
     TEST_CLASS( Split )
