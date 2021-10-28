@@ -3,6 +3,7 @@
 
 #include "join.hpp"
 #include "split.hpp"
+#include "strip.hpp"
 
 #include <vector>
 #include <string>
@@ -173,6 +174,121 @@ namespace splitjoin
             // THEN
             Assert::AreEqual( str.length() + 1, result.size() );
             std::for_each( result.cbegin(), result.cend(), []( const auto& s ) { Assert::AreEqual( ""s, s ); } );
+        }
+    };
+
+    TEST_CLASS( Strip )
+    {
+        TEST_METHOD( strip_white_spaces_left )
+        {
+            // Given: A string that has spaces in the leftmost characters
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the initial space removed.
+
+            // GIVEN
+            const auto str = "   I saw a little sihlouetto of man..."s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( "I saw a little sihlouetto of man..."s, stripped );
+        }
+
+        TEST_METHOD( strip_wide_white_spaces_left )
+        {
+            // Given: A wide string that has spaces in the leftmost characters
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the initial space removed.
+
+            // GIVEN
+            const auto str = L"   I saw a little sihlouetto of man..."s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( L"I saw a little sihlouetto of man..."s, stripped );
+        }
+
+        TEST_METHOD( strip_white_spaces_right )
+        {
+            // Given: A string that has spaces in the rightmost characters
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the trailing spaces removed.
+
+            // GIVEN
+            const auto str = "Scaramooche, Scaramooche, will you do the fandango?   "s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( "Scaramooche, Scaramooche, will you do the fandango?"s, stripped );
+        }
+
+        TEST_METHOD( strip_wide_white_spaces_right )
+        {
+            // Given: A wide string that has spaces in the rightmost characters
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the trailing spaces removed.
+
+            // GIVEN
+            const auto str = L"Scaramooche, Scaramooche, will you do the fandango?   "s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( L"Scaramooche, Scaramooche, will you do the fandango?"s, stripped );
+        }
+
+        TEST_METHOD( strip_white_spaces_left_and_right )
+        {
+            // Given: A string that has spaces at the start and end
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the initial and final spaces removed.
+
+            // GIVEN
+            const auto str = "   Methinks it is a weasel        "s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( "Methinks it is a weasel"s, stripped );
+        }
+
+        TEST_METHOD( strip_wide_white_spaces_right_and_right )
+        {
+            // Given: A wide string that has spaces at the start and end
+            // When: the wide string is stripped
+            // Then: The resulting string is the original string, with the initial and final spaces removed.
+
+            // GIVEN
+            const auto str = L"   Methinks it is a weasel       "s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( L"Methinks it is a weasel"s, stripped );
+        }
+
+        TEST_METHOD( strip_mixed_whitespace_left_and_right )
+        {
+            // Given: A string that has mixed whitespace characters at the start and end
+            // When: the string is stripped
+            // Then: The resulting string is the original string, with the initial and final whitespace removed.
+
+            // GIVEN
+            const auto str = " \n \t\r  Methinks it is a weasel \n \t\t\t      \r\n "s;
+
+            // WHEN
+            const auto stripped = strip( str );
+
+            // THEN
+            Assert::AreEqual( "Methinks it is a weasel"s, stripped );
         }
     };
 }
