@@ -12,10 +12,6 @@ std::vector<std::basic_string<Char_T>> split( const std::basic_string<Char_T>& s
     while (true)
     {
         auto pos = std::find(begin, str.cend(), delimiter );
-     //   if ( std::string::npos == pos )
-     //   {
-     //       return std::vector<std::basic_string<Char_T>>{ str };
-     //   }
 
         result.emplace_back( begin, pos );
 

@@ -119,5 +119,38 @@ namespace splitjoin
                 Assert::AreEqual( expected[i], words[i] );
             }
         }
+
+        TEST_METHOD( split_without_delimiter_is_original_string )
+        {
+            // Given: A string that doesn't contain the target delimiter
+            // When: The string is split
+            // Then: The result is a vector that is a single element containing the original string
+
+            // GIVEN
+            const auto str = "No delimiters here!"s;
+
+            // WHEN
+            const auto result = split( str, '-' );
+
+            Assert::AreEqual( size_t( 1 ), result.size() );
+            Assert::AreEqual( str, result.front() );
+        }
+
+        TEST_METHOD( split_string_that_only_contains_delimiters )
+        {
+            // Given: A string that contains only N delimiting characters
+            // When: The string is split
+            // Then: The result is a vector of N+1 empty strings
+
+            // GIVEN
+            const auto str = "    "s;
+
+            // WHEN
+            const auto result = split( str, ' ' );
+
+            // THEN
+            Assert::AreEqual( str.length() + 1, result.size() );
+            std::for_each( result.cbegin(), result.cend(), []( const auto& s ) { Assert::AreEqual( ""s, s ); } );
+        }
     };
 }
